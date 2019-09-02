@@ -8,7 +8,7 @@ class HomePageTest(unittest.TestCase):
     @classmethod
     def setUp(cls):
         cls.driver = webdriver.Chrome(r"C:\Users\koga\Documents\chromedriver_win32\chromedriver.exe")
-        cls.driver.implicitly_wait(30)
+        cls.driver.implicitly_wait(15)
         cls.driver.get("https://www.monotaro.com")
 
     def test_search_field(self):
@@ -18,12 +18,13 @@ class HomePageTest(unittest.TestCase):
         self.assertTrue(self.is_element_present(By.ID, "new_nav"))
 
     def test_shopping_cart_empty_message(self):
-        shopping_cart_icon = self.driver.find_element_by_css_selector("a.globalMenu__menu--basket basket_idle")
+        #id指定
+        shopping_cart_icon = self.driver.find_element_by_css_selector("#globalMenu__menu--basket")
         shopping_cart_icon.click()
-        
+        #class指定
         shopping_cart_status = self.driver.find_element_by_css_selector("p.basket__iteNone__message").text
         self.assertEqual("現在バスケットには何も入っていません。", shopping_cart_status)
-        
+        #class指定
         close_button = self.driver.find_element_by_css_selector("a.basket__iteNone__link")
         close_button.click()
     
